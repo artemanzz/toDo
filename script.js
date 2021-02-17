@@ -116,7 +116,9 @@ const render = function (users) {
 }
 
 let signIn = function () {
-  let data = {};
+  let user = '',
+    checkLogin = false,
+    checkPass = false;
   let login = prompt('Введите логин.');
 
   if (login === null) {
@@ -133,14 +135,18 @@ let signIn = function () {
     if (pass !== '') {
       for (let i in users) {
         if (login === users[i].login) {
+          checkLogin = true;
           if (pass === users[i].pass) {
-            usernameSpan.textContent = users[i].name;
-          } else {
-            alert('Неверный пароль.');
+            checkPass = true;
+            user = users[i].name;
           }
-        } else {
-          alert('Пользователь не найден.');
         }
+      }
+
+      if (checkLogin && checkPass) {
+        usernameSpan.textContent = user;
+      } else {
+        alert('Пользователь не найден');
       }
     } else {
       alert('Некорректно указан пароль.');
